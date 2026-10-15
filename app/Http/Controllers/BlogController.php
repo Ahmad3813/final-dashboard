@@ -38,8 +38,10 @@ class BlogController extends Controller
             ->route('blog')
             ->with('success', 'Blog created successfully.');
     }
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
+        $blog = Blog::findOrFail($id);
+
         if ($blog->image) {
             Storage::disk('public')->delete($blog->image);
         }
@@ -51,22 +53,25 @@ class BlogController extends Controller
             ->with('success', 'Blog deleted successfully.');
     }
 
-    public function show(Blog $blog)
+    public function show($id)
     {
-
+        $blog = Blog::findOrFail($id);
         return view('blogs.view-blog', compact('blog'));
     }
-    public function edit(Blog $blog)
+    public function edit($id)
     {
+        $blog = Blog::findOrFail($id);
         return view('blogs.edit-blog', compact('blog'));
     }
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
+        $blog = Blog::findOrFail($id);
+
         $validated = $request->validate([
-            'short_title' => ['required', 'string', 'max:255'],
-            'title' => ['required', 'string', 'max:255'],
-            'short_description' => ['required', 'string'],
-            'content' => ['required', 'string'],
+            'short_title' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'short_description' => ['nullable', 'string'],
+            'content' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'published_at' => ['nullable', 'date'],
         ]);
@@ -79,6 +84,8 @@ class BlogController extends Controller
             $validated['image'] = $request->file('image')
                 ->store('blogs', 'public');
         }
+
+
 
         $blog->update($validated);
 

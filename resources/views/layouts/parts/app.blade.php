@@ -38,13 +38,30 @@
                 My Blogs
             </a>
 
-            <a class="menu-link" href="#">
+            <a class="menu-link" href="{{ route('view-profile') }}">
                 My Profile
             </a>
 
             <a class="menu-link" href="#">
                 Settings
             </a>
+            @if (auth()->check() && auth()->user()->isSuperAdmin())
+            <a
+                href="{{ route('admin.users.index') }}"
+                class="menu-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                User Management
+            </a>
+            @endif
+
+            @auth
+            @if (auth()->user()->isAdmin() || auth()->user()->isQA() || auth()->user()->isTester())
+            <a
+                href="{{ route('admin.tasks.index') }}"
+                class="menu-link {{ request()->routeIs('admin.tasks.*') ? 'active' : '' }}">
+                Tasks
+            </a>
+            @endif
+            @endauth
         </nav>
 
         <div class="sidebar-footer">
@@ -71,11 +88,50 @@
             </div>
 
             <div class="navbar-right">
-                <span class="user-name">{{ auth()->user()->name }}</span>
+                @auth
+                <div class="navbar-account">
+                    <div class="navbar-account-details">
+                        <div class="navbar-account-top">
+                            <span class="user-name">{{ auth()->user()->name }}</span>
 
-                <span class="user-avatar">
-                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                </span>
+                            @if (auth()->user()->isSuperAdmin())
+                            <span class="role-badge role-super-admin">
+                                <span class="role-dot"></span>
+                                Super Admin
+                            </span>
+                            @elseif (auth()->user()->isAdmin())
+                            <span class="role-badge role-admin">
+                                <span class="role-dot"></span>
+                                Admin
+                            </span>
+                            @elseif (auth()->user()->isUser())
+                            <span class="role-badge role-user">
+                                <span class="role-dot"></span>
+                                User
+                            </span>
+                            @elseif (auth()->user()->isQA())
+                            <span class="role-badge role-qa">
+                                <span class="role-dot"></span>
+                                QA
+                            </span>
+                            @elseif (auth()->user()->isTester())
+                            <span class="role-badge role-tester">
+                                <span class="role-dot"></span>
+                                Tester
+                            </span>
+                            @endif
+                        </div>
+
+                        <span class="user-email">
+                            {{ auth()->user()->email }}
+                        </span>
+                    </div>
+
+                    <span class="user-avatar">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    </span>
+                </div>
+                @endauth
             </div>
         </header>
 

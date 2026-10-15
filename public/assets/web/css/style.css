@@ -622,3 +622,95 @@ input[type="checkbox"]:focus-visible {
     border-radius: 10px;
     object-fit: cover;
 }
+.role-choice-qa-icon {
+    background: #d5faf3;
+    color: #087f69;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.role-choice-tester-icon {
+    background: #fff0d8;
+    color: #b96512;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.role-choice-tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.role-choice-qa .role-choice-tag {
+    background: #d5faf3;
+    color: #087f69;
+}
+
+.role-choice-tester .role-choice-tag {
+    background: #fff0d8;
+    color: #b96512;
+}
+
+.role-choice-qa:hover,
+.role-choice-qa:has(input:checked) {
+    border-color: #22bfa3;
+    background: #f2fffc;
+}
+
+.role-choice-tester:hover,
+.role-choice-tester:has(input:checked) {
+    border-color: #f1a34a;
+    background: #fffaf2;
+}
+
+.role-choice-qa:has(input:checked) .role-choice-check {
+    background: #0b9d82;
+}
+
+.role-choice-tester:has(input:checked) .role-choice-check {
+    background: #dd8627;
+}
+.tasks-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tasks-id-mark {
+    flex-shrink: 0;
+    padding: 8px 11px;
+    border-radius: 9px;
+    background: #f1e8ff;
+    color: #7c3aed;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.school-student-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.school-student-actions form {
+    margin: 0;
+}
+
+.school-student-show {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid #cddcf8;
+    border-radius: 8px;
+    background: #eef4ff;
+    color: #175bd3;
+    font-weight: 600;
+    text-decoration: none;
+}
